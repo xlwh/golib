@@ -1,0 +1,70 @@
+package bns;
+
+import "service.proto";
+
+option optimize_for = SPEED;
+
+//data struct request for local naming-service request
+message LocalNamingRequest{
+    optional string service_name = 1;
+    optional bool all = 2 [default = true];
+    optional int32 pid = 3 [default = -1];
+    optional int32 type = 4 [default = 0];
+    optional string host_name = 5;
+}
+
+//data struct response for local naming-service response
+message LocalNamingResponse{
+    optional string service_name = 1;
+    repeated InstanceInfo instance_info = 2;  	//Host status entities that running this service 
+    optional int32 retcode = 3;
+    optional bool stale = 4[default = false];
+    optional int32 threshold = 5[default = 0];
+}
+
+//data struct request for local naming-auth-service request
+message LocalNamingAuthRequest{
+    optional string service_name = 1;
+    optional bool all = 2[default = true];
+    optional int32 pid = 3 [default = -1];
+}
+
+//data struct response for local naming-auth-service response
+message LocalNamingAuthResponse{
+    optional string service_name = 1;
+    repeated ServiceHostList trusted_services = 2;
+    optional int32 retcode = 3;
+}
+
+message LocalServiceConfRequest{
+    optional string service_name = 1;
+    optional int32 pid = 3 [default = -1];
+}
+
+message LocalServiceConfResponse{
+    optional ServiceInfo service_info = 1;
+    optional int32 retcode = 2;
+}
+
+//data struct request for local naming-service-list request
+message LocalNamingListRequest{
+    repeated LocalNamingRequest request_list = 1;
+    optional int32 pid = 3 [default = -1];
+}
+
+//data struct response for local naming-service-list response
+message LocalNamingListResponse{
+    repeated LocalNamingResponse naming_list = 1;
+}
+
+//data struct request for local naming-auth-service-list request
+message LocalNamingAuthListRequest{
+    repeated LocalNamingAuthRequest request_list = 1;
+    optional int32 pid = 3 [default = -1];
+}
+
+//data struct response for local naming-auth-service-list response
+message LocalNamingAuthListResponse{
+    repeated LocalNamingAuthResponse naming_auth_list = 1;
+}
+

@@ -1,0 +1,57 @@
+package bns;
+
+option optimize_for = SPEED;
+
+message InstanceInfo{
+    optional string host_name = 1; 
+    optional string service_name = 2;
+    optional InstanceStatus  instance_status = 3; 
+    optional InstanceLoad instance_load = 4;	//The load of the SERVICE running on this host
+    optional uint32 host_ip = 5;
+    optional bool   suspect_status = 6 [default = false];    //false means no need to check
+    optional int32 offset = 7[default = 0];
+}
+
+message InstanceLoad{
+    optional int32 load = 1;
+}
+
+message InstanceStatus{
+  optional int32 port = 1;      //The port of the SERVICE running on this host
+  optional int32 status = 2; 	//The running status of the SERVICE running on this host 
+  optional string tags = 3;     //The tags user given to this SERVICE running on this host
+  optional string extra = 4;
+  optional int32  interventional_status = 5 [default = 0];   //manual interventional status
+  optional string multi_port = 6;
+  optional string container_id = 7;
+  optional string deploy_path = 8;
+}
+
+message ServiceHostList{
+    optional string service_name = 1;
+    repeated string host_name = 2;
+    repeated HostIpPair host_ip_pair = 3;
+}
+message ServiceAuthList{
+    optional string service_name = 1;
+    repeated string auth_service_name = 2;
+}
+
+message HostIpPair {
+    optional string host_name = 1;
+    optional uint32 host_ip = 2;
+}
+
+message ServiceInfo {
+    optional string service_name = 1;
+    optional string service_conf = 2;
+    optional int32 threshold = 3;
+    optional string custom_define = 4;
+    optional bool   open_deadhost_check = 5[default = false];
+    optional int32 threshold_percent = 6;
+    optional bool   open_smart_bns = 7[default = false];
+    optional string group_names = 8;
+    optional string qos_info = 9;
+    optional bool qos_open = 10[default = false];
+    optional string giano_info = 11;
+}

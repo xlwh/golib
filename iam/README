@@ -1,0 +1,15 @@
+// Copyright 2016 Baidu Inc. All Rights Reserved.
+// Authors: Xiao Yuanhao(xiaoyuanhao@baidu.com)
+
+## Notice of struct RequestArguments
+  - Authorization: use iam.Sign to calculate the authorization string.
+  - SignHeaders:   the same to sign headers which are signed in the process of signature.
+
+## Notice of struct SignArguments
+  - Headers: the request headers, you can use iam.ConvertMap to get right format required by iam server.
+             However, you should make sure the "Host" header do not have port due to the "Host" header
+             may be of the form "host:port".
+             In addition, the "Host" header must in headers.
+
+## Usage of iam client
+  - See the unit test of iam handler.
